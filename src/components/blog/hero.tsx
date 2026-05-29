@@ -25,16 +25,16 @@ export function Hero() {
       {/* Animated Background */}
       <div className="absolute inset-0 -z-10">
         {/* Morphing blobs */}
-        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-gradient-to-br from-amber-500/15 to-yellow-600/10 rounded-full blur-3xl animate-morph" />
-        <div className="absolute bottom-1/4 -right-32 w-[28rem] h-[28rem] bg-gradient-to-br from-yellow-500/10 to-amber-600/8 rounded-full blur-3xl animate-morph" style={{ animationDelay: "-4s" }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] bg-gradient-to-br from-amber-500/5 to-yellow-600/5 rounded-full blur-3xl animate-morph" style={{ animationDelay: "-2s" }} />
+        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-gradient-to-br from-violet-500/15 to-purple-600/10 rounded-full blur-3xl animate-morph" />
+        <div className="absolute bottom-1/4 -right-32 w-[28rem] h-[28rem] bg-gradient-to-br from-purple-500/10 to-violet-600/8 rounded-full blur-3xl animate-morph" style={{ animationDelay: "-4s" }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] bg-gradient-to-br from-violet-500/5 to-purple-600/5 rounded-full blur-3xl animate-morph" style={{ animationDelay: "-2s" }} />
 
         {/* Grid overlay */}
         <div
           className="absolute inset-0 opacity-[0.04] dark:opacity-[0.06]"
           style={{
-            backgroundImage: `linear-gradient(rgba(251,191,36,0.2) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(251,191,36,0.2) 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(rgba(139,92,246,0.2) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(139,92,246,0.2) 1px, transparent 1px)`,
             backgroundSize: "60px 60px",
           }}
         />
@@ -74,11 +74,11 @@ export function Hero() {
         >
           <div className="relative">
             {/* Rotating gradient ring */}
-            <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400 animate-spin-slow opacity-60 blur-sm" />
-            <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400 animate-spin-slow" />
+            <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-violet-400 via-purple-500 to-violet-400 animate-spin-slow opacity-60 blur-sm" />
+            <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-violet-400 via-purple-500 to-violet-400 animate-spin-slow" />
             <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden ring-4 ring-background">
               <img
-                src="/avatar.png"
+                src="/logo.jpg"
                 alt="LX"
                 className="w-full h-full object-cover"
               />
@@ -88,7 +88,7 @@ export function Hero() {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.8, type: "spring" }}
-              className="absolute -bottom-1 -right-1 w-10 h-10 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-full flex items-center justify-center text-black text-xs font-bold ring-3 ring-background shadow-lg shadow-amber-500/30"
+              className="absolute -bottom-1 -right-1 w-10 h-10 bg-gradient-to-br from-violet-400 to-purple-600 rounded-full flex items-center justify-center text-black text-xs font-bold ring-3 ring-background shadow-lg shadow-violet-500/30"
             >
               LX
             </motion.div>
@@ -101,10 +101,10 @@ export function Hero() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-amber-500/10 via-yellow-500/10 to-amber-500/10 border border-amber-500/20 text-sm font-medium mb-6">
-            <Crown className="w-4 h-4 text-amber-400" />
+          <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-violet-500/10 via-purple-500/10 to-violet-500/10 border border-violet-500/20 text-sm font-medium mb-6">
+            <Crown className="w-4 h-4 text-violet-400" />
             <span className="gradient-text font-semibold">你好，欢迎来到我的博客</span>
-            <Zap className="w-4 h-4 text-yellow-400" />
+            <Zap className="w-4 h-4 text-purple-400" />
           </span>
         </motion.div>
 
@@ -127,7 +127,7 @@ export function Hero() {
           className="text-xl sm:text-2xl md:text-3xl font-bold mb-4"
         >
           <span className="text-muted-foreground">代码即诗</span>
-          <span className="mx-3 text-amber-400">·</span>
+          <span className="mx-3 text-violet-400">·</span>
           <span className="gradient-text">用技术书写世界</span>
         </motion.div>
 
@@ -151,7 +151,7 @@ export function Hero() {
         >
           <Button
             size="lg"
-            className="bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-400 hover:to-yellow-500 text-black font-bold gap-2 rounded-full px-8 shadow-xl shadow-amber-500/25 hover:shadow-2xl hover:shadow-amber-500/30 transition-all duration-300 hover:scale-105"
+            className="bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-400 hover:to-purple-500 text-black font-bold gap-2 rounded-full px-8 shadow-xl shadow-violet-500/25 hover:shadow-2xl hover:shadow-violet-500/30 transition-all duration-300 hover:scale-105"
             onClick={() => {
               document
                 .querySelector("#posts")
@@ -164,7 +164,7 @@ export function Hero() {
           <Button
             variant="outline"
             size="lg"
-            className="gap-2 rounded-full px-8 border-amber-500/30 hover:bg-amber-500/10 hover:border-amber-500/50 text-foreground transition-all duration-300 hover:scale-105"
+            className="gap-2 rounded-full px-8 border-violet-500/30 hover:bg-violet-500/10 hover:border-violet-500/50 text-foreground transition-all duration-300 hover:scale-105"
             asChild
           >
             <a
@@ -188,7 +188,7 @@ export function Hero() {
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-            className="flex flex-col items-center gap-2 text-amber-400/30"
+            className="flex flex-col items-center gap-2 text-violet-400/30"
           >
             <span className="text-xs tracking-widest uppercase">Scroll</span>
             <ArrowDown className="w-4 h-4" />

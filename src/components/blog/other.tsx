@@ -62,8 +62,8 @@ export function Other() {
   return (
     <section id="other" className="py-24 sm:py-32 relative overflow-hidden" ref={ref}>
       <div className="absolute inset-0 -z-10">
-        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-gradient-to-br from-amber-500/5 to-yellow-600/5 rounded-full blur-3xl" />
-        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-gradient-to-br from-yellow-500/5 to-amber-600/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-gradient-to-br from-violet-500/5 to-purple-600/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-gradient-to-br from-purple-500/5 to-violet-600/5 rounded-full blur-3xl" />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
@@ -74,7 +74,7 @@ export function Other() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-yellow-500/10 to-amber-500/10 border border-yellow-500/20 text-sm font-medium text-yellow-400 mb-4">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-purple-500/10 to-violet-500/10 border border-purple-500/20 text-sm font-medium text-purple-400 mb-4">
             <Compass className="w-3.5 h-3.5" />
             更多
           </span>
@@ -94,10 +94,10 @@ export function Other() {
               initial={{ y: 30, opacity: 0 }}
               animate={inView ? { y: 0, opacity: 1 } : {}}
               transition={{ duration: 0.4, delay: 0.05 * i, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative p-5 rounded-2xl border border-border bg-card transition-all duration-300 hover:border-amber-500/30 hover:shadow-lg hover:shadow-amber-500/5 hover:-translate-y-1 text-center"
+              className="group relative p-5 rounded-2xl border border-border bg-card transition-all duration-300 hover:border-violet-500/30 hover:shadow-lg hover:shadow-violet-500/5 hover:-translate-y-1 text-center"
             >
               {/* Hover glow */}
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-2xl opacity-0 group-hover:opacity-10 blur-lg transition-all duration-500" />
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-violet-400 to-purple-500 rounded-2xl opacity-0 group-hover:opacity-10 blur-lg transition-all duration-500" />
 
               <motion.div
                 className="text-3xl mb-3"
@@ -106,7 +106,7 @@ export function Other() {
               >
                 {item.emoji}
               </motion.div>
-              <h4 className="font-bold text-sm mb-1 group-hover:text-amber-400 transition-colors">
+              <h4 className="font-bold text-sm mb-1 group-hover:text-violet-400 transition-colors">
                 {item.title}
               </h4>
               <p className="text-xs text-muted-foreground leading-relaxed">

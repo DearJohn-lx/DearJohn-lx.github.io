@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   keywords: ["LX", "个人博客", "前端开发", "TypeScript", "React", "Next.js"],
   authors: [{ name: "LX" }],
   icons: {
-    icon: "/avatar.png",
+    icon: "/logo.jpg",
   },
   openGraph: {
     title: "LX | 个人博客",

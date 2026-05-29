@@ -6,9 +6,9 @@ import { Play, Pause, RotateCcw, Timer, Coffee, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const MODES = [
-  { label: "专注", minutes: 25, color: "#f59e0b", icon: <Zap className="w-4 h-4" /> },
-  { label: "短休", minutes: 5, color: "#fbbf24", icon: <Coffee className="w-4 h-4" /> },
-  { label: "长休", minutes: 15, color: "#d97706", icon: <Timer className="w-4 h-4" /> },
+  { label: "专注", minutes: 25, color: "#8b5cf6", icon: <Zap className="w-4 h-4" /> },
+  { label: "短休", minutes: 5, color: "#a78bfa", icon: <Coffee className="w-4 h-4" /> },
+  { label: "长休", minutes: 15, color: "#7c3aed", icon: <Timer className="w-4 h-4" /> },
 ] as const;
 
 type Mode = typeof MODES[number];
@@ -113,7 +113,7 @@ export function Pomodoro() {
   return (
     <section id="pomodoro" className="py-24 sm:py-32 relative overflow-hidden" ref={ref}>
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-gradient-to-br from-amber-500/5 to-yellow-600/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-gradient-to-br from-violet-500/5 to-purple-600/5 rounded-full blur-3xl" />
       </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
@@ -124,7 +124,7 @@ export function Pomodoro() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/10 to-yellow-500/10 border border-amber-500/20 text-sm font-medium text-amber-400 mb-4">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-violet-500/10 to-purple-500/10 border border-violet-500/20 text-sm font-medium text-violet-400 mb-4">
             <Timer className="w-3.5 h-3.5" />
             番茄钟
           </span>
@@ -151,8 +151,8 @@ export function Pomodoro() {
               onClick={() => switchMode(m)}
               className={`rounded-full px-5 gap-1.5 transition-all duration-300 ${
                 mode.label === m.label
-                  ? "bg-gradient-to-r from-amber-500 to-yellow-600 text-black font-bold shadow-lg shadow-amber-500/20"
-                  : "hover:bg-amber-500/10 hover:border-amber-500/30"
+                  ? "bg-gradient-to-r from-violet-500 to-purple-600 text-black font-bold shadow-lg shadow-violet-500/20"
+                  : "hover:bg-violet-500/10 hover:border-violet-500/30"
               }`}
             >
               {m.icon}
@@ -196,7 +196,7 @@ export function Pomodoro() {
               <defs>
                 <linearGradient id="pomodoroGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stopColor={mode.color} />
-                  <stop offset="100%" stopColor="#fbbf24" />
+                  <stop offset="100%" stopColor="#c084fc" />
                 </linearGradient>
               </defs>
             </svg>
@@ -205,7 +205,7 @@ export function Pomodoro() {
               <span className="text-4xl font-mono font-bold text-foreground tabular-nums">
                 {formatTime(remaining)}
               </span>
-              <span className="text-sm text-amber-400 mt-2">{statusText}</span>
+              <span className="text-sm text-violet-400 mt-2">{statusText}</span>
             </div>
           </div>
 
@@ -214,7 +214,7 @@ export function Pomodoro() {
             <Button
               size="lg"
               onClick={toggle}
-              className="rounded-full px-8 gap-2 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-400 hover:to-yellow-500 text-black font-bold shadow-lg shadow-amber-500/20 transition-all duration-300 hover:scale-105"
+              className="rounded-full px-8 gap-2 bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-400 hover:to-purple-500 text-black font-bold shadow-lg shadow-violet-500/20 transition-all duration-300 hover:scale-105"
             >
               {running ? (
                 <>
@@ -232,7 +232,7 @@ export function Pomodoro() {
               variant="outline"
               size="lg"
               onClick={reset}
-              className="rounded-full px-6 gap-2 border-amber-500/20 hover:bg-amber-500/10 hover:border-amber-500/40"
+              className="rounded-full px-6 gap-2 border-violet-500/20 hover:bg-violet-500/10 hover:border-violet-500/40"
             >
               <RotateCcw className="w-4 h-4" />
               重置

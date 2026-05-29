@@ -52,10 +52,8 @@ export function Navbar() {
             className="flex items-center gap-2.5 group"
           >
             <div className="relative">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-yellow-600 flex items-center justify-center text-black font-bold text-sm tracking-tighter group-hover:scale-110 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-amber-500/25">
-                LX
-              </div>
-              <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-amber-400 to-yellow-600 opacity-0 group-hover:opacity-30 blur-md transition-opacity duration-300" />
+              <img src="/logo.jpg" alt="LX" className="w-10 h-10 rounded-xl object-cover group-hover:scale-110 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-violet-500/25" />
+              <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-violet-400 to-purple-600 opacity-0 group-hover:opacity-30 blur-md transition-opacity duration-300" />
             </div>
             <span className="font-bold text-lg hidden sm:block gradient-text">
               LX Blog
@@ -72,7 +70,7 @@ export function Navbar() {
                   e.preventDefault();
                   handleNavClick(link.href);
                 }}
-                className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground rounded-lg transition-all duration-300 hover:bg-amber-500/10 hover:shadow-sm hover:shadow-amber-500/10 relative group"
+                className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground rounded-lg transition-all duration-300 hover:bg-violet-500/10 hover:shadow-sm hover:shadow-violet-500/10 relative group"
               >
                 <span className="hidden group-hover:inline mr-1 transition-all duration-200">
                   {link.emoji}
@@ -89,10 +87,10 @@ export function Navbar() {
               variant="ghost"
               size="icon"
               onClick={() => setQuoteOpen(true)}
-              className="h-9 w-9 rounded-xl hover:bg-amber-500/10 transition-all duration-300"
+              className="h-9 w-9 rounded-xl hover:bg-violet-500/10 transition-all duration-300"
               title="每日一言"
             >
-              <Quote className="h-4 w-4 text-amber-400" />
+              <Quote className="h-4 w-4 text-violet-400" />
             </Button>
 
             {/* Pomodoro */}
@@ -103,10 +101,10 @@ export function Navbar() {
                 const el = document.querySelector("#pomodoro");
                 el?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="h-9 w-9 rounded-xl hover:bg-amber-500/10 transition-all duration-300"
+              className="h-9 w-9 rounded-xl hover:bg-violet-500/10 transition-all duration-300"
               title="番茄钟"
             >
-              <Timer className="h-4 w-4 text-amber-400" />
+              <Timer className="h-4 w-4 text-violet-400" />
             </Button>
 
             {/* Theme Toggle */}
@@ -115,7 +113,7 @@ export function Navbar() {
                 variant="ghost"
                 size="icon"
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="h-9 w-9 rounded-xl hover:bg-amber-500/10 transition-all duration-300"
+                className="h-9 w-9 rounded-xl hover:bg-violet-500/10 transition-all duration-300"
               >
                 <motion.div
                   key={theme}
@@ -124,9 +122,9 @@ export function Navbar() {
                   transition={{ duration: 0.3 }}
                 >
                   {theme === "dark" ? (
-                    <Sun className="h-4 w-4 text-amber-400" />
+                    <Sun className="h-4 w-4 text-violet-400" />
                   ) : (
-                    <Moon className="h-4 w-4 text-amber-500" />
+                    <Moon className="h-4 w-4 text-violet-500" />
                   )}
                 </motion.div>
               </Button>
@@ -169,7 +167,7 @@ export function Navbar() {
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: 0.05 * i }}
-                  className="px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-amber-500/10 rounded-xl transition-all duration-300 flex items-center gap-2"
+                  className="px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-violet-500/10 rounded-xl transition-all duration-300 flex items-center gap-2"
                 >
                   <span>{link.emoji}</span>
                   {link.label}
@@ -225,20 +223,20 @@ function DailyQuoteDialog({ open, onOpenChange }: { open: boolean; onOpenChange:
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md bg-card border-amber-500/20 p-0 overflow-hidden">
+      <DialogContent className="max-w-md bg-card border-violet-500/20 p-0 overflow-hidden">
         {/* Top gradient bar */}
-        <div className="h-1.5 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400" />
+        <div className="h-1.5 bg-gradient-to-r from-violet-400 via-purple-500 to-violet-400" />
 
         <div className="p-8 relative">
           {/* 3D floating card effect */}
           <div className="relative">
             {/* Glow */}
-            <div className="absolute -inset-4 bg-gradient-to-r from-amber-400/10 to-yellow-500/10 rounded-3xl blur-2xl" />
+            <div className="absolute -inset-4 bg-gradient-to-r from-violet-400/10 to-purple-500/10 rounded-3xl blur-2xl" />
 
-            <div className="relative rounded-2xl border border-amber-500/15 bg-gradient-to-br from-amber-500/5 to-yellow-600/5 p-8 text-center">
+            <div className="relative rounded-2xl border border-violet-500/15 bg-gradient-to-br from-violet-500/5 to-purple-600/5 p-8 text-center">
               {/* Quote icon */}
               <div className="mb-4">
-                <span className="text-5xl text-amber-400/30 font-serif leading-none">&ldquo;</span>
+                <span className="text-5xl text-violet-400/30 font-serif leading-none">&ldquo;</span>
               </div>
 
               {/* Quote text with fade */}
@@ -258,7 +256,7 @@ function DailyQuoteDialog({ open, onOpenChange }: { open: boolean; onOpenChange:
                       {q.text}
                     </p>
                     <p
-                      className="text-sm text-amber-400/70"
+                      className="text-sm text-violet-400/70"
                       style={{ fontFamily: "'Noto Serif SC', serif" }}
                     >
                       —— {q.author}
@@ -275,7 +273,7 @@ function DailyQuoteDialog({ open, onOpenChange }: { open: boolean; onOpenChange:
               variant="outline"
               size="sm"
               onClick={refresh}
-              className="rounded-full gap-2 border-amber-500/20 hover:bg-amber-500/10 hover:border-amber-500/40 transition-all duration-300"
+              className="rounded-full gap-2 border-violet-500/20 hover:bg-violet-500/10 hover:border-violet-500/40 transition-all duration-300"
             >
               <motion.span
                 whileTap={{ rotate: 360 }}
