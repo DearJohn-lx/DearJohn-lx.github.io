@@ -114,7 +114,7 @@ export function Contact() {
                 </motion.span>
 
                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${item.bgGradient} flex items-center justify-center mb-5 group-hover:scale-110 transition-all duration-300 ${item.borderColor}`}>
-                  <div className={`text-transparent bg-clip-text bg-gradient-to-r ${item.gradient}`}>
+                  <div className="text-violet-400 group-hover:text-violet-300 transition-colors duration-300">
                     {item.icon}
                   </div>
                 </div>
