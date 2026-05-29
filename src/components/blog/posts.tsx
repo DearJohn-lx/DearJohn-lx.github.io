@@ -2,8 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Calendar, Clock, ArrowUpRight, Tag, Sparkles, TrendingUp } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { Calendar, Clock, ArrowUpRight, Tag, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { blogPosts } from "@/lib/blog-data";
 
@@ -30,8 +29,8 @@ export function Posts() {
     <section id="posts" className="py-24 sm:py-32 relative overflow-hidden" ref={ref}>
       {/* Background */}
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-muted/30 via-transparent to-muted/30" />
-      <div className="absolute top-1/3 left-0 w-96 h-96 bg-gradient-to-br from-violet-400/5 to-cyan-400/5 rounded-full blur-3xl animate-morph" />
-      <div className="absolute bottom-1/3 right-0 w-96 h-96 bg-gradient-to-br from-emerald-400/5 to-amber-400/5 rounded-full blur-3xl animate-morph" style={{ animationDelay: "-4s" }} />
+      <div className="absolute top-1/3 left-0 w-96 h-96 bg-gradient-to-br from-violet-400/5 to-orange-400/5 rounded-full blur-3xl animate-morph" />
+      <div className="absolute bottom-1/3 right-0 w-96 h-96 bg-gradient-to-br from-rose-400/5 to-amber-400/5 rounded-full blur-3xl animate-morph" style={{ animationDelay: "-4s" }} />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
@@ -73,8 +72,8 @@ export function Posts() {
               onClick={() => setActiveCategory(cat)}
               className={`rounded-full px-5 transition-all duration-300 ${
                 activeCategory === cat
-                  ? "bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-white shadow-lg shadow-emerald-500/20 scale-105"
-                  : "hover:bg-emerald-500/10 hover:border-emerald-500/30"
+                  ? "bg-gradient-to-r from-rose-500 to-orange-500 hover:from-rose-400 hover:to-orange-400 text-white shadow-lg shadow-rose-500/20 scale-105"
+                  : "hover:bg-rose-500/10 hover:border-rose-500/30"
               }`}
             >
               <span className="mr-1.5">{categoryEmojis[cat]}</span>
@@ -132,7 +131,7 @@ export function Posts() {
 
                 {/* Content */}
                 <div className="flex-1 p-5 flex flex-col">
-                  <h3 className="font-bold text-base mb-2 group-hover:text-emerald-500 transition-colors line-clamp-2">
+                  <h3 className="font-bold text-base mb-2 group-hover:text-rose-500 transition-colors line-clamp-2">
                     {post.title}
                   </h3>
                   <p className="text-sm text-muted-foreground mb-4 line-clamp-2 flex-1">
@@ -144,7 +143,7 @@ export function Posts() {
                     {post.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-medium border border-emerald-500/10"
+                        className="text-xs px-2.5 py-0.5 rounded-full bg-rose-500/10 text-rose-600 dark:text-rose-400 font-medium border border-rose-500/10"
                       >
                         #{tag}
                       </span>
@@ -154,7 +153,7 @@ export function Posts() {
                   {/* Meta */}
                   <div className="flex items-center gap-3 text-xs text-muted-foreground pt-3 border-t border-border/50">
                     <span className="flex items-center gap-1.5">
-                      <Calendar className="w-3 h-3 text-emerald-400" />
+                      <Calendar className="w-3 h-3 text-rose-400" />
                       {post.date}
                     </span>
                     <span className="flex items-center gap-1.5">

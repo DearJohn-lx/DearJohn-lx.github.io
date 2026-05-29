@@ -9,28 +9,28 @@ const highlights = [
     icon: <Code2 className="w-6 h-6" />,
     title: "前端开发",
     description: "精通 React / Next.js / TypeScript 生态，追求极致用户体验",
-    gradient: "from-emerald-400 to-cyan-400",
+    gradient: "from-rose-400 to-orange-400",
     emoji: "⚛️",
   },
   {
     icon: <Layers className="w-6 h-6" />,
     title: "全栈能力",
     description: "前后端一体化开发，从数据库到部署全链路覆盖",
-    gradient: "from-cyan-400 to-blue-400",
+    gradient: "from-orange-400 to-amber-400",
     emoji: "🏗️",
   },
   {
     icon: <Rocket className="w-6 h-6" />,
     title: "持续学习",
     description: "保持技术热情，关注前沿动态，不断探索新技术",
-    gradient: "from-amber-400 to-orange-400",
+    gradient: "from-amber-400 to-yellow-400",
     emoji: "🚀",
   },
   {
     icon: <Coffee className="w-6 h-6" />,
     title: "开源精神",
     description: "积极参与开源社区，分享知识，回馈技术生态",
-    gradient: "from-rose-400 to-pink-400",
+    gradient: "from-pink-400 to-rose-400",
     emoji: "☕",
   },
 ];
@@ -43,8 +43,8 @@ export function About() {
     <section id="about" className="py-24 sm:py-32 relative overflow-hidden" ref={ref}>
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-0 right-0 w-72 h-72 bg-gradient-to-br from-emerald-400/5 to-cyan-400/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-72 h-72 bg-gradient-to-br from-amber-400/5 to-rose-400/5 rounded-full blur-3xl" />
+        <div className="absolute top-0 right-0 w-72 h-72 bg-gradient-to-br from-rose-400/5 to-orange-400/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-72 h-72 bg-gradient-to-br from-amber-400/5 to-pink-400/5 rounded-full blur-3xl" />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -59,7 +59,7 @@ export function About() {
             initial={{ scale: 0 }}
             animate={inView ? { scale: 1 } : {}}
             transition={{ delay: 0.1, type: "spring" }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 border border-emerald-500/20 text-sm font-medium text-emerald-500 mb-4"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-rose-500/10 to-orange-500/10 border border-rose-500/20 text-sm font-medium text-rose-500 mb-4"
           >
             <Sparkles className="w-3.5 h-3.5" />
             关于我
@@ -107,7 +107,7 @@ export function About() {
                     {item.icon}
                   </div>
                 </div>
-                <h3 className="font-bold text-lg mb-2 group-hover:text-emerald-500 transition-colors">
+                <h3 className="font-bold text-lg mb-2 group-hover:text-rose-500 transition-colors">
                   {item.title}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">

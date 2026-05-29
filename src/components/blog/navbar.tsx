@@ -3,7 +3,7 @@
 import { useState, useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
-import { Sun, Moon, Menu, X, Sparkles } from "lucide-react";
+import { Sun, Moon, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
@@ -53,7 +53,7 @@ export function Navbar() {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "glass shadow-lg shadow-emerald-500/5"
+            ? "glass shadow-lg shadow-rose-500/5"
             : "bg-transparent"
         }`}
       >
@@ -68,10 +68,10 @@ export function Navbar() {
             className="flex items-center gap-2.5 group"
           >
             <div className="relative">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center text-white font-bold text-sm tracking-tighter group-hover:scale-110 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-emerald-500/25">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-400 to-orange-500 flex items-center justify-center text-white font-bold text-sm tracking-tighter group-hover:scale-110 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-rose-500/25">
                 LX
               </div>
-              <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 opacity-0 group-hover:opacity-30 blur-md transition-opacity duration-300" />
+              <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-rose-400 to-orange-500 opacity-0 group-hover:opacity-30 blur-md transition-opacity duration-300" />
             </div>
             <span className="font-bold text-lg hidden sm:block gradient-text">
               LX Blog
@@ -80,7 +80,7 @@ export function Navbar() {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link, i) => (
+            {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
@@ -88,7 +88,7 @@ export function Navbar() {
                   e.preventDefault();
                   handleNavClick(link.href);
                 }}
-                className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground rounded-lg transition-all duration-300 hover:bg-emerald-500/10 hover:shadow-sm hover:shadow-emerald-500/10 relative group"
+                className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground rounded-lg transition-all duration-300 hover:bg-rose-500/10 hover:shadow-sm hover:shadow-rose-500/10 relative group"
               >
                 <span className="hidden group-hover:inline mr-1 transition-all duration-200">
                   {link.emoji}
@@ -105,7 +105,7 @@ export function Navbar() {
                 variant="ghost"
                 size="icon"
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="h-9 w-9 rounded-xl hover:bg-emerald-500/10 transition-all duration-300"
+                className="h-9 w-9 rounded-xl hover:bg-rose-500/10 transition-all duration-300"
               >
                 <motion.div
                   key={theme}
@@ -116,7 +116,7 @@ export function Navbar() {
                   {theme === "dark" ? (
                     <Sun className="h-4 w-4 text-amber-400" />
                   ) : (
-                    <Moon className="h-4 w-4 text-emerald-500" />
+                    <Moon className="h-4 w-4 text-rose-500" />
                   )}
                 </motion.div>
               </Button>
@@ -130,7 +130,7 @@ export function Navbar() {
               {mobileOpen ? (
                 <X className="h-4 w-4" />
               ) : (
-                <Menu className="h-4 w-4" />
+                <Menu className="h-4 h-4" />
               )}
             </Button>
           </div>
@@ -159,7 +159,7 @@ export function Navbar() {
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: 0.05 * i }}
-                  className="px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-emerald-500/10 rounded-xl transition-all duration-300 flex items-center gap-2"
+                  className="px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-rose-500/10 rounded-xl transition-all duration-300 flex items-center gap-2"
                 >
                   <span>{link.emoji}</span>
                   {link.label}

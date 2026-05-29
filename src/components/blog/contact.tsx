@@ -13,9 +13,9 @@ const contactItems = [
     subtitle: "随时联系我",
     value: profileLinks.email,
     href: `mailto:${profileLinks.email}`,
-    gradient: "from-emerald-400 to-cyan-400",
-    bgGradient: "from-emerald-500/10 to-cyan-500/10",
-    borderColor: "border-emerald-500/20",
+    gradient: "from-rose-400 to-orange-400",
+    bgGradient: "from-rose-500/10 to-orange-500/10",
+    borderColor: "border-rose-500/20",
     emoji: "📧",
   },
   {
@@ -50,7 +50,7 @@ export function Contact() {
     <section id="contact" className="py-24 sm:py-32 relative overflow-hidden" ref={ref}>
       {/* Background */}
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-muted/30 via-transparent to-muted/30" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50rem] h-[50rem] bg-gradient-to-br from-emerald-400/5 via-cyan-400/3 to-amber-400/5 rounded-full blur-3xl animate-morph" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50rem] h-[50rem] bg-gradient-to-br from-rose-400/5 via-orange-400/3 to-amber-400/5 rounded-full blur-3xl animate-morph" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
@@ -64,7 +64,7 @@ export function Contact() {
             initial={{ scale: 0 }}
             animate={inView ? { scale: 1 } : {}}
             transition={{ delay: 0.1, type: "spring" }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-rose-500/10 to-amber-500/10 border border-rose-500/20 text-sm font-medium text-rose-500 mb-4"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-500/10 to-amber-500/10 border border-pink-500/20 text-sm font-medium text-pink-500 mb-4"
           >
             <MessageCircle className="w-3.5 h-3.5" />
             联系我
@@ -137,7 +137,7 @@ export function Contact() {
         >
           <Button
             size="lg"
-            className="bg-gradient-to-r from-emerald-500 via-cyan-500 to-amber-500 hover:from-emerald-400 hover:via-cyan-400 hover:to-amber-400 text-white gap-2 rounded-full px-10 shadow-xl shadow-emerald-500/20 hover:shadow-2xl hover:shadow-emerald-500/30 transition-all duration-300 hover:scale-105 animate-gradient-shift bg-[length:200%_200%]"
+            className="bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 hover:from-rose-400 hover:via-orange-400 hover:to-amber-400 text-white gap-2 rounded-full px-10 shadow-xl shadow-rose-500/20 hover:shadow-2xl hover:shadow-rose-500/30 transition-all duration-300 hover:scale-105 animate-gradient-shift bg-[length:200%_200%]"
             asChild
           >
             <a href={`mailto:${profileLinks.email}`}>

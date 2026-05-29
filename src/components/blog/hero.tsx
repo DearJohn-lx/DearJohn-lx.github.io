@@ -25,16 +25,16 @@ export function Hero() {
       {/* Animated Background */}
       <div className="absolute inset-0 -z-10">
         {/* Morphing blobs */}
-        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-gradient-to-br from-emerald-400/20 to-cyan-400/10 rounded-full blur-3xl animate-morph" />
+        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-gradient-to-br from-rose-400/20 to-orange-400/10 rounded-full blur-3xl animate-morph" />
         <div className="absolute bottom-1/4 -right-32 w-[28rem] h-[28rem] bg-gradient-to-br from-amber-400/15 to-rose-400/10 rounded-full blur-3xl animate-morph" style={{ animationDelay: "-4s" }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] bg-gradient-to-br from-violet-400/10 to-emerald-400/10 rounded-full blur-3xl animate-morph" style={{ animationDelay: "-2s" }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] bg-gradient-to-br from-violet-400/10 to-orange-400/10 rounded-full blur-3xl animate-morph" style={{ animationDelay: "-2s" }} />
 
         {/* Grid overlay */}
         <div
           className="absolute inset-0 opacity-[0.03] dark:opacity-[0.06]"
           style={{
-            backgroundImage: `linear-gradient(rgba(16,185,129,0.3) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(16,185,129,0.3) 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(rgba(244,63,94,0.3) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(244,63,94,0.3) 1px, transparent 1px)`,
             backgroundSize: "60px 60px",
           }}
         />
@@ -74,8 +74,8 @@ export function Hero() {
         >
           <div className="relative">
             {/* Rotating gradient ring */}
-            <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-emerald-400 via-cyan-400 to-amber-400 animate-spin-slow opacity-60 blur-sm" />
-            <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-emerald-400 via-cyan-400 to-amber-400 animate-spin-slow" />
+            <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-rose-400 via-orange-400 to-amber-400 animate-spin-slow opacity-60 blur-sm" />
+            <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-rose-400 via-orange-400 to-amber-400 animate-spin-slow" />
             <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden ring-4 ring-background">
               <img
                 src="/avatar.png"
@@ -88,7 +88,7 @@ export function Hero() {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.8, type: "spring" }}
-              className="absolute -bottom-1 -right-1 w-10 h-10 bg-gradient-to-br from-emerald-400 to-cyan-500 rounded-full flex items-center justify-center text-white text-xs font-bold ring-3 ring-background shadow-lg shadow-emerald-500/30"
+              className="absolute -bottom-1 -right-1 w-10 h-10 bg-gradient-to-br from-rose-400 to-orange-500 rounded-full flex items-center justify-center text-white text-xs font-bold ring-3 ring-background shadow-lg shadow-rose-500/30"
             >
               LX
             </motion.div>
@@ -101,10 +101,10 @@ export function Hero() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-emerald-500/10 via-cyan-500/10 to-amber-500/10 border border-emerald-500/20 text-sm font-medium mb-6">
+          <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-rose-500/10 via-orange-500/10 to-amber-500/10 border border-rose-500/20 text-sm font-medium mb-6">
             <Sparkles className="w-4 h-4 text-amber-400" />
             <span className="gradient-text font-semibold">你好，欢迎来到我的博客</span>
-            <Zap className="w-4 h-4 text-emerald-400" />
+            <Zap className="w-4 h-4 text-rose-400" />
           </span>
         </motion.div>
 
@@ -119,7 +119,7 @@ export function Hero() {
           <span className="gradient-text">LX</span>
         </motion.h1>
 
-        {/* Typing effect tagline */}
+        {/* Tagline */}
         <motion.div
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -127,7 +127,7 @@ export function Hero() {
           className="text-xl sm:text-2xl md:text-3xl font-bold mb-4"
         >
           <span className="text-muted-foreground">代码即诗</span>
-          <span className="mx-3 text-emerald-400">·</span>
+          <span className="mx-3 text-rose-400">·</span>
           <span className="gradient-text">用技术书写世界</span>
         </motion.div>
 
@@ -151,7 +151,7 @@ export function Hero() {
         >
           <Button
             size="lg"
-            className="bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-white gap-2 rounded-full px-8 shadow-xl shadow-emerald-500/25 hover:shadow-2xl hover:shadow-emerald-500/30 transition-all duration-300 hover:scale-105"
+            className="bg-gradient-to-r from-rose-500 to-orange-500 hover:from-rose-400 hover:to-orange-400 text-white gap-2 rounded-full px-8 shadow-xl shadow-rose-500/25 hover:shadow-2xl hover:shadow-rose-500/30 transition-all duration-300 hover:scale-105"
             onClick={() => {
               document
                 .querySelector("#posts")
@@ -164,7 +164,7 @@ export function Hero() {
           <Button
             variant="outline"
             size="lg"
-            className="gap-2 rounded-full px-8 border-emerald-500/30 hover:bg-emerald-500/10 hover:border-emerald-500/50 transition-all duration-300 hover:scale-105"
+            className="gap-2 rounded-full px-8 border-rose-500/30 hover:bg-rose-500/10 hover:border-rose-500/50 transition-all duration-300 hover:scale-105"
             asChild
           >
             <a

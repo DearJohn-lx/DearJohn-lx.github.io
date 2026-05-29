@@ -28,7 +28,7 @@ export const blogPosts: BlogPost[] = [
     readTime: 8,
     tags: ["Next.js", "React", "SSG"],
     category: "前端开发",
-    coverGradient: "from-emerald-500 to-teal-600",
+    coverGradient: "from-rose-500 to-orange-600",
   },
   {
     id: "2",
@@ -76,7 +76,7 @@ export const blogPosts: BlogPost[] = [
     readTime: 15,
     tags: ["Node.js", "Stream", "性能优化"],
     category: "后端 & 运维",
-    coverGradient: "from-cyan-500 to-sky-600",
+    coverGradient: "from-amber-500 to-rose-600",
   },
   {
     id: "6",
@@ -88,7 +88,7 @@ export const blogPosts: BlogPost[] = [
     readTime: 7,
     tags: ["Git", "协作", "工程化"],
     category: "工程化",
-    coverGradient: "from-lime-500 to-green-600",
+    coverGradient: "from-orange-500 to-amber-600",
   },
 ];
 
