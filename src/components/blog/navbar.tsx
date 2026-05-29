@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useSyncExternalStore, useCallback } from "react";
+import { useState, useSyncExternalStore, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
 import { Sun, Moon, Menu, X, Sparkles, Timer, Quote } from "lucide-react";
@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogTitle,
 } from "@/components/ui/dialog";
 
 const navLinks = [
@@ -206,6 +207,41 @@ const quotes = [
 function DailyQuoteDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (v: boolean) => void }) {
   const [quoteIdx, setQuoteIdx] = useState(() => Math.floor(Math.random() * quotes.length));
   const [fade, setFade] = useState(true);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [tiltStyle, setTiltStyle] = useState<React.CSSProperties>({});
+  const [glareStyle, setGlareStyle] = useState<React.CSSProperties>({});
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const card = cardRef.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -6;
+    const rotateY = ((x - centerX) / centerX) * 6;
+
+    setTiltStyle({
+      transform: `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`,
+      transition: "transform 0.1s ease-out",
+    });
+
+    const glareX = (x / rect.width) * 100;
+    const glareY = (y / rect.height) * 100;
+    setGlareStyle({
+      background: `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(139,92,246,0.15) 0%, transparent 60%)`,
+      opacity: "1",
+    });
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setTiltStyle({
+      transform: "perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)",
+      transition: "transform 0.6s ease-out",
+    });
+    setGlareStyle({ opacity: "0" });
+  }, []);
 
   const refresh = useCallback(() => {
     setFade(false);
@@ -224,16 +260,31 @@ function DailyQuoteDialog({ open, onOpenChange }: { open: boolean; onOpenChange:
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md bg-card border-violet-500/20 p-0 overflow-hidden">
+        {/* Visually hidden title for accessibility */}
+        <DialogTitle className="sr-only">每日一言</DialogTitle>
+
         {/* Top gradient bar */}
         <div className="h-1.5 bg-gradient-to-r from-violet-400 via-purple-500 to-violet-400" />
 
         <div className="p-8 relative">
-          {/* 3D floating card effect */}
-          <div className="relative">
+          {/* 3D tilt card */}
+          <div
+            ref={cardRef}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={tiltStyle}
+            className="relative cursor-default"
+          >
             {/* Glow */}
             <div className="absolute -inset-4 bg-gradient-to-r from-violet-400/10 to-purple-500/10 rounded-3xl blur-2xl" />
 
             <div className="relative rounded-2xl border border-violet-500/15 bg-gradient-to-br from-violet-500/5 to-purple-600/5 p-8 text-center">
+              {/* Glare overlay */}
+              <div
+                className="absolute inset-0 z-10 pointer-events-none rounded-2xl transition-opacity duration-300"
+                style={glareStyle}
+              />
+
               {/* Quote icon */}
               <div className="mb-4">
                 <span className="text-5xl text-violet-400/30 font-serif leading-none">&ldquo;</span>
