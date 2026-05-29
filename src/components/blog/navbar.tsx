@@ -3,15 +3,15 @@
 import { useState, useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
-import { Sun, Moon, Menu, X } from "lucide-react";
+import { Sun, Moon, Menu, X, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
-  { label: "首页", href: "#hero" },
-  { label: "关于", href: "#about" },
-  { label: "博客", href: "#posts" },
-  { label: "技能", href: "#skills" },
-  { label: "联系", href: "#contact" },
+  { label: "首页", href: "#hero", emoji: "🏠" },
+  { label: "关于", href: "#about", emoji: "✨" },
+  { label: "博客", href: "#posts", emoji: "📝" },
+  { label: "技能", href: "#skills", emoji: "⚡" },
+  { label: "联系", href: "#contact", emoji: "📬" },
 ];
 
 function useScrolled() {
@@ -27,10 +27,7 @@ function useScrolled() {
 
 function useMounted() {
   return useSyncExternalStore(
-    (callback) => {
-      // No external subscription needed for mounted state
-      return () => {};
-    },
+    () => () => {},
     () => true,
     () => false
   );
@@ -53,10 +50,10 @@ export function Navbar() {
       <motion.header
         initial={{ y: -80 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-background/80 backdrop-blur-xl border-b border-border shadow-sm"
+            ? "glass shadow-lg shadow-emerald-500/5"
             : "bg-transparent"
         }`}
       >
@@ -68,19 +65,22 @@ export function Navbar() {
               e.preventDefault();
               handleNavClick("#hero");
             }}
-            className="flex items-center gap-2 group"
+            className="flex items-center gap-2.5 group"
           >
-            <div className="w-9 h-9 rounded-lg bg-emerald-500 flex items-center justify-center text-white font-bold text-sm tracking-tighter group-hover:scale-110 transition-transform">
-              LX
+            <div className="relative">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center text-white font-bold text-sm tracking-tighter group-hover:scale-110 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-emerald-500/25">
+                LX
+              </div>
+              <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 opacity-0 group-hover:opacity-30 blur-md transition-opacity duration-300" />
             </div>
-            <span className="font-semibold text-lg hidden sm:block">
+            <span className="font-bold text-lg hidden sm:block gradient-text">
               LX Blog
             </span>
           </a>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
+            {navLinks.map((link, i) => (
               <a
                 key={link.href}
                 href={link.href}
@@ -88,8 +88,11 @@ export function Navbar() {
                   e.preventDefault();
                   handleNavClick(link.href);
                 }}
-                className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors"
+                className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground rounded-lg transition-all duration-300 hover:bg-emerald-500/10 hover:shadow-sm hover:shadow-emerald-500/10 relative group"
               >
+                <span className="hidden group-hover:inline mr-1 transition-all duration-200">
+                  {link.emoji}
+                </span>
                 {link.label}
               </a>
             ))}
@@ -102,19 +105,26 @@ export function Navbar() {
                 variant="ghost"
                 size="icon"
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="h-9 w-9"
+                className="h-9 w-9 rounded-xl hover:bg-emerald-500/10 transition-all duration-300"
               >
-                {theme === "dark" ? (
-                  <Sun className="h-4 w-4" />
-                ) : (
-                  <Moon className="h-4 w-4" />
-                )}
+                <motion.div
+                  key={theme}
+                  initial={{ rotate: -90, scale: 0 }}
+                  animate={{ rotate: 0, scale: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {theme === "dark" ? (
+                    <Sun className="h-4 w-4 text-amber-400" />
+                  ) : (
+                    <Moon className="h-4 w-4 text-emerald-500" />
+                  )}
+                </motion.div>
               </Button>
             )}
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden h-9 w-9"
+              className="md:hidden h-9 w-9 rounded-xl"
               onClick={() => setMobileOpen(!mobileOpen)}
             >
               {mobileOpen ? (
@@ -131,25 +141,29 @@ export function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-16 left-0 right-0 z-40 bg-background/95 backdrop-blur-xl border-b border-border md:hidden"
+            className="fixed top-16 left-0 right-0 z-40 glass md:hidden"
           >
-            <div className="px-4 py-3 flex flex-col gap-1">
-              {navLinks.map((link) => (
-                <a
+            <div className="px-4 py-4 flex flex-col gap-1">
+              {navLinks.map((link, i) => (
+                <motion.a
                   key={link.href}
                   href={link.href}
                   onClick={(e) => {
                     e.preventDefault();
                     handleNavClick(link.href);
                   }}
-                  className="px-3 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors"
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.05 * i }}
+                  className="px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-emerald-500/10 rounded-xl transition-all duration-300 flex items-center gap-2"
                 >
+                  <span>{link.emoji}</span>
                   {link.label}
-                </a>
+                </motion.a>
               ))}
             </div>
           </motion.div>

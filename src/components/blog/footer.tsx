@@ -7,16 +7,22 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border bg-card">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+    <footer className="relative border-t border-border bg-card overflow-hidden">
+      {/* Top gradient line */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent" />
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
           {/* Left - Brand */}
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center text-white font-bold text-xs">
-              LX
+            <div className="relative">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center text-white font-bold text-sm">
+                LX
+              </div>
+              <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 opacity-20 blur-md" />
             </div>
             <div>
-              <p className="text-sm font-medium">LX Blog</p>
+              <p className="font-bold gradient-text">LX Blog</p>
               <p className="text-xs text-muted-foreground">
                 代码即诗 · 用技术书写世界
               </p>
@@ -24,9 +30,9 @@ export function Footer() {
           </div>
 
           {/* Center - Copyright */}
-          <p className="text-sm text-muted-foreground flex items-center gap-1">
+          <p className="text-sm text-muted-foreground flex items-center gap-1.5">
             © {currentYear} LX · 用
-            <Heart className="w-3 h-3 text-rose-500 fill-rose-500" />
+            <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500 animate-bounce-gentle" />
             和代码构建
           </p>
 
@@ -36,19 +42,26 @@ export function Footer() {
               href={profileLinks.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-emerald-500/30 transition-colors"
+              className="w-10 h-10 rounded-xl border border-border flex items-center justify-center text-muted-foreground hover:text-white hover:bg-gradient-to-br hover:from-emerald-400 hover:to-cyan-500 hover:border-transparent transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-emerald-500/20"
               aria-label="GitHub"
             >
               <Github className="w-4 h-4" />
             </a>
             <a
               href={`mailto:${profileLinks.email}`}
-              className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-emerald-500/30 transition-colors"
+              className="w-10 h-10 rounded-xl border border-border flex items-center justify-center text-muted-foreground hover:text-white hover:bg-gradient-to-br hover:from-amber-400 hover:to-rose-500 hover:border-transparent transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-amber-500/20"
               aria-label="Email"
             >
               <Mail className="w-4 h-4" />
             </a>
           </div>
+        </div>
+
+        {/* Bottom decoration */}
+        <div className="mt-8 pt-6 border-t border-border/50 text-center">
+          <p className="text-xs text-muted-foreground/50">
+            🚀 Powered by Next.js · Tailwind CSS · Framer Motion
+          </p>
         </div>
       </div>
     </footer>
