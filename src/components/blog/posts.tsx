@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useCallback } from "react";
 import { Calendar, Clock, ArrowUpRight, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { blogPosts } from "@/lib/blog-data";
@@ -14,6 +14,137 @@ const categoryEmojis: Record<string, string> = {
   "后端 & 运维": "🔧",
   "工程化": "⚙️",
 };
+
+// ===== 3D Tilt Card Hook =====
+function useTilt() {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [style, setStyle] = useState<React.CSSProperties>({});
+  const [glareStyle, setGlareStyle] = useState<React.CSSProperties>({});
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const card = cardRef.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -8;
+    const rotateY = ((x - centerX) / centerX) * 8;
+
+    setStyle({
+      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`,
+      transition: "transform 0.1s ease-out",
+    });
+
+    // Glare effect
+    const glareX = (x / rect.width) * 100;
+    const glareY = (y / rect.height) * 100;
+    setGlareStyle({
+      background: `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(251,191,36,0.15) 0%, transparent 60%)`,
+      opacity: "1",
+    });
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setStyle({
+      transform: "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)",
+      transition: "transform 0.6s ease-out",
+    });
+    setGlareStyle({ opacity: "0" });
+  }, []);
+
+  return { cardRef, style, glareStyle, handleMouseMove, handleMouseLeave };
+}
+
+// ===== Single Post Card with 3D Tilt =====
+function TiltCard({ post, index, inView }: { post: typeof blogPosts[0]; index: number; inView: boolean }) {
+  const { cardRef, style, glareStyle, handleMouseMove, handleMouseLeave } = useTilt();
+
+  return (
+    <motion.article
+      initial={{ y: 60, opacity: 0, scale: 0.95 }}
+      animate={inView ? { y: 0, opacity: 1, scale: 1 } : {}}
+      transition={{ duration: 0.5, delay: 0.08 * index, ease: [0.22, 1, 0.36, 1] }}
+      className="group relative"
+    >
+      {/* Hover glow */}
+      <div className={`absolute -inset-0.5 bg-gradient-to-r ${post.coverGradient} rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-all duration-700`} />
+
+      <div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={style}
+        className="relative flex flex-col rounded-2xl border border-border bg-card overflow-hidden group-hover:border-amber-500/30"
+      >
+        {/* Glare overlay */}
+        <div
+          className="absolute inset-0 z-10 pointer-events-none rounded-2xl transition-opacity duration-300"
+          style={glareStyle}
+        />
+
+        {/* Cover gradient */}
+        <div
+          className={`h-44 bg-gradient-to-br ${post.coverGradient} relative overflow-hidden`}
+        >
+          <div
+            className="absolute inset-0 opacity-20"
+            style={{
+              backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.2) 1px, transparent 0)`,
+              backgroundSize: "24px 24px",
+            }}
+          />
+          <div className="absolute top-4 left-4 w-16 h-16 border border-white/10 rounded-full" />
+          <div className="absolute top-8 left-8 w-24 h-24 border border-white/10 rounded-full" />
+          <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-white/5 rounded-full" />
+
+          <div className="absolute bottom-3 left-3">
+            <span className="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-bold border border-white/10">
+              {post.category}
+            </span>
+          </div>
+
+          <div className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/10">
+            <ArrowUpRight className="w-4 h-4" />
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="flex-1 p-5 flex flex-col">
+          <h3 className="font-bold text-base mb-2 group-hover:text-amber-400 transition-colors line-clamp-2">
+            {post.title}
+          </h3>
+          <p className="text-sm text-muted-foreground mb-4 line-clamp-2 flex-1">
+            {post.excerpt}
+          </p>
+
+          <div className="flex flex-wrap gap-1.5 mb-3">
+            {post.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-xs px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 font-medium border border-amber-500/10"
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-3 text-xs text-muted-foreground pt-3 border-t border-border/50">
+            <span className="flex items-center gap-1.5">
+              <Calendar className="w-3 h-3 text-amber-400" />
+              {post.date}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Clock className="w-3 h-3 text-yellow-500" />
+              {post.readTime} 分钟
+            </span>
+          </div>
+        </div>
+      </div>
+    </motion.article>
+  );
+}
 
 export function Posts() {
   const ref = useRef(null);
@@ -82,91 +213,10 @@ export function Posts() {
           ))}
         </motion.div>
 
-        {/* Post Grid */}
+        {/* Post Grid with 3D tilt */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((post, i) => (
-            <motion.article
-              key={post.id}
-              initial={{ y: 60, opacity: 0, scale: 0.95 }}
-              animate={inView ? { y: 0, opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.5, delay: 0.08 * i, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative"
-            >
-              {/* Hover glow */}
-              <div className={`absolute -inset-0.5 bg-gradient-to-r ${post.coverGradient} rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-all duration-700`} />
-
-              <div className="relative flex flex-col rounded-2xl border border-border bg-card overflow-hidden transition-all duration-500 group-hover:border-amber-500/30 group-hover:shadow-2xl group-hover:shadow-amber-500/5 group-hover:-translate-y-2">
-                {/* Cover gradient */}
-                <div
-                  className={`h-44 bg-gradient-to-br ${post.coverGradient} relative overflow-hidden`}
-                >
-                  {/* Pattern overlay */}
-                  <div
-                    className="absolute inset-0 opacity-20"
-                    style={{
-                      backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.2) 1px, transparent 0)`,
-                      backgroundSize: "24px 24px",
-                    }}
-                  />
-                  {/* Animated circles */}
-                  <div className="absolute top-4 left-4 w-16 h-16 border border-white/10 rounded-full" />
-                  <div className="absolute top-8 left-8 w-24 h-24 border border-white/10 rounded-full" />
-                  <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-white/5 rounded-full" />
-
-                  <div className="absolute bottom-3 left-3">
-                    <span className="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-bold border border-white/10">
-                      {post.category}
-                    </span>
-                  </div>
-
-                  {/* Hover arrow */}
-                  <motion.div
-                    className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/10"
-                    whileHover={{ scale: 1.1, rotate: 45 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <ArrowUpRight className="w-4 h-4" />
-                  </motion.div>
-                </div>
-
-                {/* Content */}
-                <div className="flex-1 p-5 flex flex-col">
-                  <h3 className="font-bold text-base mb-2 group-hover:text-amber-400 transition-colors line-clamp-2">
-                    {post.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2 flex-1">
-                    {post.excerpt}
-                  </p>
-
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-1.5 mb-3">
-                    {post.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-xs px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 font-medium border border-amber-500/10"
-                      >
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Meta */}
-                  <div className="flex items-center gap-3 text-xs text-muted-foreground pt-3 border-t border-border/50">
-                    <span className="flex items-center gap-1.5">
-                      <Calendar className="w-3 h-3 text-amber-400" />
-                      {post.date}
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <Clock className="w-3 h-3 text-yellow-500" />
-                      {post.readTime} 分钟
-                    </span>
-                  </div>
-                </div>
-
-                {/* Bottom shine effect */}
-                <div className="absolute inset-0 shine-effect rounded-2xl pointer-events-none" />
-              </div>
-            </motion.article>
+            <TiltCard key={post.id} post={post} index={i} inView={inView} />
           ))}
         </div>
 
