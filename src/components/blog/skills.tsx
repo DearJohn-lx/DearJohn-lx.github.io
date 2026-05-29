@@ -39,13 +39,13 @@ function CircularProgress({ value, size = 72, strokeWidth = 4 }: { value: number
         />
         <defs>
           <linearGradient id="skillGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#f43f5e" />
-            <stop offset="100%" stopColor="#fb923c" />
+            <stop offset="0%" stopColor="#fbbf24" />
+            <stop offset="100%" stopColor="#f59e0b" />
           </linearGradient>
         </defs>
       </svg>
       <div className="absolute inset-0 flex items-center justify-center">
-        <span className="text-sm font-bold text-muted-foreground">{value}%</span>
+        <span className="text-sm font-bold text-amber-400">{value}%</span>
       </div>
     </div>
   );
@@ -59,8 +59,8 @@ export function Skills() {
     <section id="skills" className="py-24 sm:py-32 relative overflow-hidden" ref={ref}>
       {/* Background */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-gradient-to-br from-rose-400/8 to-orange-400/8 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-amber-400/5 to-pink-400/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-gradient-to-br from-amber-500/8 to-yellow-600/8 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-yellow-500/5 to-amber-600/5 rounded-full blur-3xl" />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
@@ -75,7 +75,7 @@ export function Skills() {
             initial={{ scale: 0 }}
             animate={inView ? { scale: 1 } : {}}
             transition={{ delay: 0.1, type: "spring" }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-orange-500/10 to-rose-500/10 border border-orange-500/20 text-sm font-medium text-orange-500 mb-4"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-yellow-500/10 to-amber-500/10 border border-yellow-500/20 text-sm font-medium text-yellow-400 mb-4"
           >
             <Zap className="w-3.5 h-3.5" />
             技术栈
@@ -103,9 +103,9 @@ export function Skills() {
               className="group relative"
             >
               {/* Hover glow */}
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-rose-400 to-orange-400 rounded-2xl opacity-0 group-hover:opacity-15 blur-lg transition-all duration-500" />
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-2xl opacity-0 group-hover:opacity-15 blur-lg transition-all duration-500" />
 
-              <div className="relative p-5 sm:p-6 rounded-2xl border border-border bg-card transition-all duration-500 group-hover:border-rose-500/30 group-hover:shadow-xl group-hover:shadow-rose-500/5 group-hover:-translate-y-1 text-center">
+              <div className="relative p-5 sm:p-6 rounded-2xl border border-border bg-card transition-all duration-500 group-hover:border-amber-500/30 group-hover:shadow-xl group-hover:shadow-amber-500/5 group-hover:-translate-y-1 text-center">
                 {/* Shimmer */}
                 <div className="absolute inset-0 shine-effect rounded-2xl pointer-events-none" />
 

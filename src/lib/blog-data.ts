@@ -28,7 +28,7 @@ export const blogPosts: BlogPost[] = [
     readTime: 8,
     tags: ["Next.js", "React", "SSG"],
     category: "前端开发",
-    coverGradient: "from-rose-500 to-orange-600",
+    coverGradient: "from-amber-400 to-yellow-600",
   },
   {
     id: "2",
@@ -52,7 +52,7 @@ export const blogPosts: BlogPost[] = [
     readTime: 10,
     tags: ["Docker", "DevOps", "部署"],
     category: "后端 & 运维",
-    coverGradient: "from-rose-500 to-pink-600",
+    coverGradient: "from-yellow-400 to-amber-600",
   },
   {
     id: "4",
@@ -64,7 +64,7 @@ export const blogPosts: BlogPost[] = [
     readTime: 6,
     tags: ["Tailwind CSS", "CSS", "响应式"],
     category: "前端开发",
-    coverGradient: "from-violet-500 to-purple-600",
+    coverGradient: "from-amber-500 to-yellow-700",
   },
   {
     id: "5",
@@ -76,7 +76,7 @@ export const blogPosts: BlogPost[] = [
     readTime: 15,
     tags: ["Node.js", "Stream", "性能优化"],
     category: "后端 & 运维",
-    coverGradient: "from-amber-500 to-rose-600",
+    coverGradient: "from-yellow-500 to-amber-700",
   },
   {
     id: "6",

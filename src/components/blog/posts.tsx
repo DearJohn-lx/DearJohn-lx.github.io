@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Calendar, Clock, ArrowUpRight, Tag, TrendingUp } from "lucide-react";
+import { Calendar, Clock, ArrowUpRight, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { blogPosts } from "@/lib/blog-data";
 
@@ -29,8 +29,8 @@ export function Posts() {
     <section id="posts" className="py-24 sm:py-32 relative overflow-hidden" ref={ref}>
       {/* Background */}
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-muted/30 via-transparent to-muted/30" />
-      <div className="absolute top-1/3 left-0 w-96 h-96 bg-gradient-to-br from-violet-400/5 to-orange-400/5 rounded-full blur-3xl animate-morph" />
-      <div className="absolute bottom-1/3 right-0 w-96 h-96 bg-gradient-to-br from-rose-400/5 to-amber-400/5 rounded-full blur-3xl animate-morph" style={{ animationDelay: "-4s" }} />
+      <div className="absolute top-1/3 left-0 w-96 h-96 bg-gradient-to-br from-amber-500/5 to-yellow-600/5 rounded-full blur-3xl animate-morph" />
+      <div className="absolute bottom-1/3 right-0 w-96 h-96 bg-gradient-to-br from-yellow-500/5 to-amber-600/5 rounded-full blur-3xl animate-morph" style={{ animationDelay: "-4s" }} />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
@@ -44,7 +44,7 @@ export function Posts() {
             initial={{ scale: 0 }}
             animate={inView ? { scale: 1 } : {}}
             transition={{ delay: 0.1, type: "spring" }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-violet-500/10 to-amber-500/10 border border-violet-500/20 text-sm font-medium text-violet-500 mb-4"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/10 to-yellow-500/10 border border-amber-500/20 text-sm font-medium text-amber-400 mb-4"
           >
             <TrendingUp className="w-3.5 h-3.5" />
             博客文章
@@ -72,8 +72,8 @@ export function Posts() {
               onClick={() => setActiveCategory(cat)}
               className={`rounded-full px-5 transition-all duration-300 ${
                 activeCategory === cat
-                  ? "bg-gradient-to-r from-rose-500 to-orange-500 hover:from-rose-400 hover:to-orange-400 text-white shadow-lg shadow-rose-500/20 scale-105"
-                  : "hover:bg-rose-500/10 hover:border-rose-500/30"
+                  ? "bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-400 hover:to-yellow-500 text-black font-bold shadow-lg shadow-amber-500/20 scale-105"
+                  : "hover:bg-amber-500/10 hover:border-amber-500/30"
               }`}
             >
               <span className="mr-1.5">{categoryEmojis[cat]}</span>
@@ -95,7 +95,7 @@ export function Posts() {
               {/* Hover glow */}
               <div className={`absolute -inset-0.5 bg-gradient-to-r ${post.coverGradient} rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-all duration-700`} />
 
-              <div className="relative flex flex-col rounded-2xl border border-border bg-card overflow-hidden transition-all duration-500 group-hover:border-transparent group-hover:shadow-2xl group-hover:-translate-y-2">
+              <div className="relative flex flex-col rounded-2xl border border-border bg-card overflow-hidden transition-all duration-500 group-hover:border-amber-500/30 group-hover:shadow-2xl group-hover:shadow-amber-500/5 group-hover:-translate-y-2">
                 {/* Cover gradient */}
                 <div
                   className={`h-44 bg-gradient-to-br ${post.coverGradient} relative overflow-hidden`}
@@ -131,7 +131,7 @@ export function Posts() {
 
                 {/* Content */}
                 <div className="flex-1 p-5 flex flex-col">
-                  <h3 className="font-bold text-base mb-2 group-hover:text-rose-500 transition-colors line-clamp-2">
+                  <h3 className="font-bold text-base mb-2 group-hover:text-amber-400 transition-colors line-clamp-2">
                     {post.title}
                   </h3>
                   <p className="text-sm text-muted-foreground mb-4 line-clamp-2 flex-1">
@@ -143,7 +143,7 @@ export function Posts() {
                     {post.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="text-xs px-2.5 py-0.5 rounded-full bg-rose-500/10 text-rose-600 dark:text-rose-400 font-medium border border-rose-500/10"
+                        className="text-xs px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 font-medium border border-amber-500/10"
                       >
                         #{tag}
                       </span>
@@ -153,11 +153,11 @@ export function Posts() {
                   {/* Meta */}
                   <div className="flex items-center gap-3 text-xs text-muted-foreground pt-3 border-t border-border/50">
                     <span className="flex items-center gap-1.5">
-                      <Calendar className="w-3 h-3 text-rose-400" />
+                      <Calendar className="w-3 h-3 text-amber-400" />
                       {post.date}
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <Clock className="w-3 h-3 text-amber-400" />
+                      <Clock className="w-3 h-3 text-yellow-500" />
                       {post.readTime} 分钟
                     </span>
                   </div>
