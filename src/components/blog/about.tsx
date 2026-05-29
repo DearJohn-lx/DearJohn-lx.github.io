@@ -103,7 +103,7 @@ export function About() {
                 </motion.span>
 
                 <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.gradient} p-[1px] mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                  <div className="w-full h-full rounded-xl bg-card flex items-center justify-center text-white">
+                  <div className="w-full h-full rounded-xl bg-card flex items-center justify-center dark:text-white text-violet-600">
                     {item.icon}
                   </div>
                 </div>
