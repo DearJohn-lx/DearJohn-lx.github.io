@@ -1,19 +1,89 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState, useCallback } from "react";
-import { Calendar, Clock, ArrowUpRight, TrendingUp } from "lucide-react";
+import { Calendar, Clock, ArrowUpRight, TrendingUp, X, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { blogPosts } from "@/lib/blog-data";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { blogPosts, type BlogPost } from "@/lib/blog-data";
 
-const categories = ["全部", "前端开发", "后端 & 运维", "工程化"];
+const categories = ["全部", "前端开发", "后端 & 运维", "工程化", "生活"];
 
 const categoryEmojis: Record<string, string> = {
   "全部": "🌟",
   "前端开发": "🎨",
   "后端 & 运维": "🔧",
   "工程化": "⚙️",
+  "生活": "🍳",
 };
+
+// ===== Markdown-like renderer for recipe content =====
+function renderContent(content: string) {
+  const lines = content.split("\n");
+  const elements: React.ReactNode[] = [];
+  let key = 0;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    if (line.startsWith("---")) {
+      elements.push(<hr key={key++} className="my-6 border-violet-500/15" />);
+      continue;
+    }
+
+    if (line.startsWith("## ")) {
+      elements.push(
+        <h3 key={key++} className="text-xl font-bold mt-8 mb-3 gradient-text">
+          {line.replace("## ", "")}
+        </h3>
+      );
+      continue;
+    }
+
+    if (line.startsWith("- **")) {
+      const match = line.match(/^- \*\*(.+?)\*\*[：:]?\s*(.*)$/);
+      if (match) {
+        elements.push(
+          <div key={key++} className="flex gap-2 ml-2 mb-1.5">
+            <span className="text-violet-400 font-bold shrink-0">{match[1]}：</span>
+            <span className="text-muted-foreground">{match[2]}</span>
+          </div>
+        );
+      }
+      continue;
+    }
+
+    if (line.startsWith("  ")) {
+      const trimmed = line.trim();
+      const numberedMatch = trimmed.match(/^(\d+)\.\s+(.*)$/);
+      if (numberedMatch) {
+        elements.push(
+          <div key={key++} className="flex gap-2 ml-6 mb-1">
+            <span className="w-5 h-5 rounded-full bg-violet-500/15 text-violet-400 text-xs flex items-center justify-center shrink-0 mt-0.5 font-bold">
+              {numberedMatch[1]}
+            </span>
+            <span className="text-muted-foreground">{numberedMatch[2]}</span>
+          </div>
+        );
+      }
+      continue;
+    }
+
+    if (line.trim() === "") {
+      continue;
+    }
+
+    elements.push(
+      <p key={key++} className="text-muted-foreground mb-2">{line}</p>
+    );
+  }
+
+  return elements;
+}
 
 // ===== 3D Tilt Card Hook =====
 function useTilt() {
@@ -57,8 +127,81 @@ function useTilt() {
   return { cardRef, style, glareStyle, handleMouseMove, handleMouseLeave };
 }
 
+// ===== Article Detail Dialog =====
+function ArticleDialog({ post, open, onOpenChange }: { post: BlogPost | null; open: boolean; onOpenChange: (v: boolean) => void }) {
+  if (!post) return null;
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-2xl max-h-[85vh] bg-card border-violet-500/20 p-0 overflow-hidden">
+        <DialogTitle className="sr-only">{post.title}</DialogTitle>
+
+        {/* Cover gradient header */}
+        <div className={`h-32 bg-gradient-to-br ${post.coverGradient} relative`}>
+          <div
+            className="absolute inset-0 opacity-20"
+            style={{
+              backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.2) 1px, transparent 0)`,
+              backgroundSize: "24px 24px",
+            }}
+          />
+          <div className="absolute top-4 left-4 w-16 h-16 border border-white/10 rounded-full" />
+          <div className="absolute top-8 left-8 w-24 h-24 border border-white/10 rounded-full" />
+          <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-white/5 rounded-full" />
+
+          {/* Category badge */}
+          <div className="absolute bottom-4 left-6 flex items-center gap-3">
+            <span className="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-bold border border-white/10">
+              {post.category}
+            </span>
+            <div className="flex items-center gap-3 text-white/70 text-xs">
+              <span className="flex items-center gap-1">
+                <Calendar className="w-3 h-3" />
+                {post.date}
+              </span>
+              <span className="flex items-center gap-1">
+                <Clock className="w-3 h-3" />
+                {post.readTime} 分钟
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="p-6 sm:p-8 overflow-y-auto max-h-[calc(85vh-8rem)]">
+          <h2 className="text-2xl font-black mb-6">{post.title}</h2>
+
+          {/* Tags */}
+          <div className="flex flex-wrap gap-1.5 mb-6">
+            {post.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-xs px-2.5 py-0.5 rounded-full bg-violet-500/10 text-violet-400 font-medium border border-violet-500/10"
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
+
+          {/* Article body */}
+          {post.content ? (
+            <div className="prose-custom">
+              {renderContent(post.content)}
+            </div>
+          ) : (
+            <div className="text-center py-12 text-muted-foreground">
+              <BookOpen className="w-12 h-12 mx-auto mb-4 opacity-30" />
+              <p>文章详情正在撰写中，敬请期待…</p>
+            </div>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 // ===== Single Post Card with 3D Tilt =====
-function TiltCard({ post, index, inView }: { post: typeof blogPosts[0]; index: number; inView: boolean }) {
+function TiltCard({ post, index, inView, onClick }: { post: typeof blogPosts[0]; index: number; inView: boolean; onClick: () => void }) {
   const { cardRef, style, glareStyle, handleMouseMove, handleMouseLeave } = useTilt();
 
   return (
@@ -76,7 +219,8 @@ function TiltCard({ post, index, inView }: { post: typeof blogPosts[0]; index: n
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={style}
-        className="relative flex flex-col rounded-2xl border border-border bg-card overflow-hidden group-hover:border-violet-500/30"
+        onClick={onClick}
+        className="relative flex flex-col rounded-2xl border border-border bg-card overflow-hidden group-hover:border-violet-500/30 cursor-pointer"
       >
         {/* Glare overlay */}
         <div
@@ -105,8 +249,9 @@ function TiltCard({ post, index, inView }: { post: typeof blogPosts[0]; index: n
             </span>
           </div>
 
-          <div className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/10">
-            <ArrowUpRight className="w-4 h-4" />
+          {/* Click indicator */}
+          <div className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/10 group-hover:scale-110 transition-transform">
+            <BookOpen className="w-4 h-4" />
           </div>
         </div>
 
@@ -150,6 +295,13 @@ export function Posts() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [activeCategory, setActiveCategory] = useState("全部");
+  const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleCardClick = useCallback((post: BlogPost) => {
+    setSelectedPost(post);
+    setDialogOpen(true);
+  }, []);
 
   const filtered =
     activeCategory === "全部"
@@ -216,7 +368,7 @@ export function Posts() {
         {/* Post Grid with 3D tilt */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((post, i) => (
-            <TiltCard key={post.id} post={post} index={i} inView={inView} />
+            <TiltCard key={post.id} post={post} index={i} inView={inView} onClick={() => handleCardClick(post)} />
           ))}
         </div>
 
@@ -230,6 +382,9 @@ export function Posts() {
           </motion.div>
         )}
       </div>
+
+      {/* Article Detail Dialog */}
+      <ArticleDialog post={selectedPost} open={dialogOpen} onOpenChange={setDialogOpen} />
     </section>
   );
 }
